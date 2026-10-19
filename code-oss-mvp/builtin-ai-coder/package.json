@@ -1,0 +1,190 @@
+{
+  "name": "ai-coder-builtin",
+  "displayName": "AI-CODER",
+  "description": "AI-CODER Code-OSS runtime: task-aware coding assistant with reviewed changes, isolated worktrees, trusted checkpoints, provider routing, and architecture/context inspection.",
+  "version": "0.6.0-rc.4",
+  "publisher": "ai-coder",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning"
+  ],
+  "activationEvents": [
+    "onView:aiCoder.workbench",
+    "onCommand:aiCoder.openWorkbench",
+    "onCommand:aiCoder.undoLastChange",
+    "onCommand:aiCoder.refreshModels",
+    "onCommand:aiCoder.codexLogin",
+    "onCommand:aiCoder.codexStatus",
+    "onCommand:aiCoder.codexLogout",
+    "onCommand:aiCoder.runtimeQualification",
+    "onCommand:aiCoder.openEvidence",
+    "onCommand:aiCoder.openAgentsWorkspace"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "aiCoder.openWorkbench",
+        "title": "AI-CODER: Open Workbench"
+      },
+      {
+        "command": "aiCoder.openAgentsWorkspace",
+        "title": "AI-CODER: Open Agents Workspace"
+      },
+      {
+        "command": "aiCoder.undoLastChange",
+        "title": "AI-CODER: Undo Last AI Change"
+      },
+      {
+        "command": "aiCoder.createProjectProfile",
+        "title": "AI-CODER: Create Project Profile"
+      },
+      {
+        "command": "aiCoder.refreshModels",
+        "title": "AI-CODER: Refresh Provider Model Catalog"
+      },
+      {
+        "command": "aiCoder.codexLogin",
+        "title": "AI-CODER: Sign In to Codex"
+      },
+      {
+        "command": "aiCoder.codexStatus",
+        "title": "AI-CODER: Check Codex Account Status"
+      },
+      {
+        "command": "aiCoder.codexLogout",
+        "title": "AI-CODER: Sign Out of Codex"
+      },
+      {
+        "command": "aiCoder.runtimeQualification",
+        "title": "AI-CODER: Runtime Qualification Report"
+      },
+      {
+        "command": "aiCoder.selectTask",
+        "title": "AI-CODER: Open Task"
+      },
+      {
+        "command": "aiCoder.openEvidence",
+        "title": "AI-CODER: Open Evidence Panel"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "aiCoder",
+          "title": "AI-CODER",
+          "icon": "media/ai-coder.svg"
+        }
+      ],
+      "panel": [
+        {
+          "id": "aiCoderEvidence",
+          "title": "AI-CODER Evidence",
+          "icon": "media/ai-coder.svg"
+        }
+      ]
+    },
+    "views": {
+      "aiCoder": [
+        {
+          "id": "aiCoder.workbench",
+          "name": "AI Task Workbench",
+          "type": "webview"
+        }
+      ],
+      "explorer": [
+        {
+          "id": "aiCoder.tasksExplorer",
+          "name": "AI Tasks"
+        }
+      ],
+      "aiCoderEvidence": [
+        {
+          "id": "aiCoder.evidence",
+          "name": "Evidence",
+          "type": "webview"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AI-CODER",
+      "properties": {
+        "aiCoder.routingMode": {
+          "type": "string",
+          "enum": [
+            "balanced",
+            "quality",
+            "fast",
+            "low-cost",
+            "local-only"
+          ],
+          "default": "balanced",
+          "description": "Policy used by Auto provider/model/effort selection."
+        },
+        "aiCoder.provider": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "codex",
+            "openai-compatible",
+            "ollama"
+          ],
+          "default": "auto"
+        },
+        "aiCoder.model": {
+          "type": "string",
+          "default": "auto",
+          "description": "Model ID. Use 'auto' or any provider-supported model ID."
+        },
+        "aiCoder.effort": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "low",
+            "medium",
+            "high",
+            "extra-high"
+          ],
+          "default": "auto"
+        },
+        "aiCoder.openaiCompatible.baseUrl": {
+          "type": "string",
+          "default": "https://api.openai.com/v1"
+        },
+        "aiCoder.ollama.baseUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:11434"
+        },
+        "aiCoder.maxContextChars": {
+          "type": "number",
+          "default": 80000,
+          "minimum": 5000,
+          "maximum": 500000
+        },
+        "aiCoder.modelCatalogCacheTtlMinutes": {
+          "type": "number",
+          "default": 10,
+          "minimum": 0,
+          "maximum": 1440,
+          "description": "How long provider model catalogs may be reused before a live refresh. Set to 0 to disable caching."
+        }
+      }
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "aiCoder.openAgentsWorkspace",
+          "when": "view == aiCoder.workbench",
+          "group": "navigation@1"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "test": "node --test"
+  }
+}

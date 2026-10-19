@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "cases": [
+    {"name": "auto-never-selects-codex", "requestedProvider": "auto", "providerName": "codex", "connected": true, "eligible": false},
+    {"name": "explicit-codex-connected", "requestedProvider": "codex", "providerName": "codex", "connected": true, "eligible": true},
+    {"name": "explicit-codex-disconnected", "requestedProvider": "codex", "providerName": "codex", "connected": false, "eligible": false},
+    {"name": "different-manual-provider", "requestedProvider": "ollama", "providerName": "codex", "connected": true, "eligible": false}
+  ]
+}

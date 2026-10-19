@@ -1,0 +1,53 @@
+{
+  "formatVersion": 1,
+  "cases": [
+    {
+      "name": "tests and dependencies outrank unrelated files",
+      "activeRel": "src/auth/session.ts",
+      "activeText": "import { token } from './token';\nexport function session() {}",
+      "taskText": "fix session token expiration bug and add tests",
+      "modifiedPaths": ["tests/session.test.ts"],
+      "paths": [
+        "src/auth/session.ts",
+        "src/auth/token.ts",
+        "tests/session.test.ts",
+        "src/ui/panel.ts",
+        "README.md"
+      ],
+      "expectedOrder": [
+        "tests/session.test.ts",
+        "src/auth/token.ts",
+        "src/ui/panel.ts",
+        "README.md"
+      ],
+      "expectedReasons": {
+        "tests/session.test.ts": "git-modified",
+        "src/auth/token.ts": "direct-dependency"
+      }
+    },
+    {
+      "name": "task path match and same directory are deterministic",
+      "activeRel": "lib/parser/main.py",
+      "activeText": "from helpers.tokens import tokenize",
+      "taskText": "parser token diagnostic",
+      "modifiedPaths": [],
+      "paths": [
+        "lib/parser/main.py",
+        "lib/parser/diagnostic.py",
+        "helpers/tokens.py",
+        "docs/parser-guide.md",
+        "other/zeta.py"
+      ],
+      "expectedOrder": [
+        "helpers/tokens.py",
+        "lib/parser/diagnostic.py",
+        "docs/parser-guide.md",
+        "other/zeta.py"
+      ],
+      "expectedReasons": {
+        "helpers/tokens.py": "direct-dependency",
+        "lib/parser/diagnostic.py": "task-path-match"
+      }
+    }
+  ]
+}

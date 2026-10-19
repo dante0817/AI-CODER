@@ -1,0 +1,38 @@
+{
+  "formatVersion": 1,
+  "capabilityCases": [
+    {
+      "name": "boolean capability aliases normalize to canonical states",
+      "raw": {"tool_calling": true, "thinking": false, "vision": true, "json_schema": true},
+      "expected": {"tools": "supported", "reasoning": "unsupported", "images": "supported", "structured_output": "supported"}
+    },
+    {
+      "name": "explicit state strings are retained",
+      "raw": {"tools": "unknown", "reasoning": "supported", "structured_output": "unsupported"},
+      "expected": {"tools": "unknown", "reasoning": "supported", "structured_output": "unsupported"}
+    },
+    {
+      "name": "unrecognized metadata does not create capability claims",
+      "raw": {"functions": true, "multimodal": true},
+      "expected": {}
+    }
+  ],
+  "ollamaCases": [
+    {
+      "name": "ollama supported capabilities normalize without treating omission as unsupported",
+      "raw": ["tools", "thinking", "vision", "json_schema"],
+      "expected": {"tools": "supported", "reasoning": "supported", "images": "supported", "structured_output": "supported"}
+    },
+    {
+      "name": "empty ollama list yields no unsupported claims",
+      "raw": [],
+      "expected": {}
+    }
+  ],
+  "effortCases": [
+    {"name": "auto omits reasoning effort", "effort": "auto", "baseUrl": "https://api.openai.com/v1", "expected": null},
+    {"name": "official OpenAI extra-high maps to xhigh", "effort": "extra-high", "baseUrl": "https://api.openai.com/v1", "expected": "xhigh"},
+    {"name": "generic compatible extra-high conservatively maps to high", "effort": "extra-high", "baseUrl": "http://127.0.0.1:8080/v1", "expected": "high"},
+    {"name": "ordinary effort passes through", "effort": "medium", "baseUrl": "https://example.invalid/v1", "expected": "medium"}
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "AI-CODER Workbench & Architecture Control",
+  "description": "Interactive architecture suite, two-stage model router, smart context retrieval engine, in-memory patch compiler, task lifecycle workbench, and security conformance runner for AI-CODER Desktop v0.4.7 / v0.5.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

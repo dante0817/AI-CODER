@@ -1,0 +1,35 @@
+{
+  "version": 3,
+  "cases": [
+    {
+      "name": "lsp-reference outranks lexical and test proximity",
+      "paths": ["src/controller.ts", "src/helper.ts", "lib/session.ts", "tests/controller.test.ts"],
+      "activeRel": "src/controller.ts",
+      "activeText": "import { Session } from '../lib/session';\nexport function runSession(s: Session) { return s; }",
+      "taskText": "Fix runSession lifecycle handling",
+      "modifiedPaths": [],
+      "symbolHits": {},
+      "semanticPaths": ["lib/session.ts"],
+      "expectedOrder": ["lib/session.ts", "tests/controller.test.ts", "src/helper.ts"],
+      "expectedReasons": {
+        "lib/session.ts": "lsp-reference",
+        "tests/controller.test.ts": "related-test"
+      }
+    },
+    {
+      "name": "git change still ranks above plain same-directory fallback",
+      "paths": ["src/main.py", "src/helper.py", "lib/config.py"],
+      "activeRel": "src/main.py",
+      "activeText": "def run():\n    return helper()\n",
+      "taskText": "Fix run behavior",
+      "modifiedPaths": ["lib/config.py"],
+      "symbolHits": {},
+      "semanticPaths": [],
+      "expectedOrder": ["lib/config.py", "src/helper.py"],
+      "expectedReasons": {
+        "lib/config.py": "git-modified",
+        "src/helper.py": "same-directory"
+      }
+    }
+  ]
+}

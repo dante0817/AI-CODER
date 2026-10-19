@@ -1,0 +1,8 @@
+{
+  "formatVersion": 1,
+  "repository": "https://github.com/microsoft/vscode.git",
+  "release": "1.139.1",
+  "ref": "1.139.1",
+  "expectedCommitPrefix": "04c0d99",
+  "policy": "Production-candidate bootstrap must resolve this ref to a full commit and verify the expected prefix before staging AI-CODER."
+}

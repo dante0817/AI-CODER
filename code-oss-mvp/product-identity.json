@@ -1,0 +1,16 @@
+{
+  "formatVersion": 1,
+  "nameShort": "AI-CODER",
+  "nameLong": "AI-CODER",
+  "applicationName": "ai-coder",
+  "dataFolderName": ".ai-coder",
+  "sharedDataFolderName": ".ai-coder-shared",
+  "win32MutexName": "ai-coder",
+  "win32DirName": "AI-CODER",
+  "win32NameVersion": "AI-CODER",
+  "win32RegValueName": "AICODER",
+  "win32AppUserModelId": "AI-CODER.AI-CODER",
+  "win32ShellNameShort": "AI-CODER",
+  "urlProtocol": "ai-coder",
+  "note": "Stable identifiers are a cutover contract. Installer GUIDs and any server/tunnel identifiers present in the pinned upstream product.json must be explicitly audited before v0.6.0 final."
+}

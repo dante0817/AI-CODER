@@ -1,0 +1,56 @@
+{
+  "formatVersion": 1,
+  "description": "Workspace-symbol index hints augment lexical and reference-based context ranking without bypassing safety filters.",
+  "cases": [
+    {
+      "name": "workspace symbol index promotes a cross-directory definition",
+      "paths": [
+        "src/config.ts",
+        "lib/session.ts",
+        "tests/auth.test.ts"
+      ],
+      "activeRel": "src/auth.ts",
+      "activeText": "function authenticate() { return SessionManager.open(); }",
+      "taskText": "Fix SessionManager authentication cleanup",
+      "modifiedPaths": [],
+      "symbolHits": {},
+      "semanticPaths": [],
+      "workspaceSymbolHits": {
+        "lib/session.ts": 3
+      },
+      "expectedOrder": [
+        "lib/session.ts",
+        "tests/auth.test.ts",
+        "src/config.ts"
+      ],
+      "expectedReasons": {
+        "lib/session.ts": "workspace-symbol"
+      }
+    },
+    {
+      "name": "direct LSP reference remains the strongest reason when both signals exist",
+      "paths": [
+        "lib/session.ts",
+        "src/config.ts"
+      ],
+      "activeRel": "src/auth.ts",
+      "activeText": "const x = SessionManager.open();",
+      "taskText": "Review SessionManager",
+      "modifiedPaths": [],
+      "symbolHits": {},
+      "semanticPaths": [
+        "lib/session.ts"
+      ],
+      "workspaceSymbolHits": {
+        "lib/session.ts": 2
+      },
+      "expectedOrder": [
+        "lib/session.ts",
+        "src/config.ts"
+      ],
+      "expectedReasons": {
+        "lib/session.ts": "lsp-reference"
+      }
+    }
+  ]
+}

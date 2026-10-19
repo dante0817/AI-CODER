@@ -1,0 +1,47 @@
+{
+  "formatVersion": 1,
+  "product": "AI-CODER",
+  "version": "0.6.0-rc.3",
+  "candidate": "Editor + Agents GUI convergence source candidate",
+  "sourceRuntimeQualified": true,
+  "nativeWindowsBuildQualified": false,
+  "powershellScriptsExecutedInArtifactEnvironment": false,
+  "tests": {
+    "python": {
+      "passed": 66,
+      "skipped": 14,
+      "failed": 0
+    },
+    "codeOSS": {
+      "passed": 72,
+      "skipped": 5,
+      "failed": 0
+    }
+  },
+  "checks": {
+    "pythonCompile": true,
+    "javascriptSyntax": true,
+    "jsonParse": true,
+    "windowsSafeIoBinaryParity": true,
+    "windowsSafeIoSha256": "70ae3e5ee2bf976db86afee13772b0fa7d2533a8640766296ef2fb7738b96471"
+  },
+  "ui": {
+    "editorMode": "native Code-OSS editor/workbench",
+    "agentsWorkspace": true,
+    "taskArtifacts": true,
+    "noProjectLanding": true,
+    "modelsSurface": true,
+    "architectureSurface": true,
+    "evidencePanel": true,
+    "legacyTkinterDefaultLauncherStillPresent": true,
+    "codeOSSDevelopmentLauncherAdded": true
+  },
+  "remainingGates": [
+    "native Windows Code-OSS staged build",
+    "PowerShell launcher/preflight execution on Windows",
+    "NTFS junction/hard-link/security qualification",
+    "packaged-app GUI smoke test",
+    "final launcher cutover"
+  ],
+  "generatedAtUtc": "2026-09-29T04:56:42.853568+00:00"
+}

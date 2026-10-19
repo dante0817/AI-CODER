@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+env/
+
+# Node and frontend build output
+node_modules/
+dist/
+build/
+coverage/
+.next/
+out/
+*.log
+
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx
+.ssh/
+.aws/
+credentials.json
+credentials.*
+secrets.json
+secrets.*
+
+# AI-CODER runtime state and task artifacts
+.ai-coder/
+
+# Editor and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini

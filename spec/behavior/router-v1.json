@@ -1,0 +1,55 @@
+{
+  "formatVersion": 1,
+  "analysisCases": [
+    {
+      "name": "architecture review",
+      "text": "Review the entire app architecture thoroughly",
+      "expected": {"taskType": "architecture", "complexity": "high", "requiresWrite": false, "requiresTools": false, "autoEffort": "high"}
+    },
+    {
+      "name": "concurrency bug fix",
+      "text": "Fix the intermittent concurrency race and run tests",
+      "expected": {"taskType": "debugging", "complexity": "high", "requiresWrite": true, "requiresTools": true, "autoEffort": "high"}
+    },
+    {
+      "name": "small rename",
+      "text": "Simple rename of one line",
+      "expected": {"taskType": "quick_edit", "complexity": "low", "requiresWrite": false, "requiresTools": false, "autoEffort": "low"}
+    },
+    {
+      "name": "documentation",
+      "text": "Explain and update the README documentation",
+      "expected": {"taskType": "documentation", "complexity": "medium", "requiresWrite": true, "requiresTools": true, "autoEffort": "medium"}
+    }
+  ],
+  "routingCases": [
+    {
+      "name": "fast quick edit",
+      "text": "Simple typo correction",
+      "routingMode": "fast",
+      "availableProviders": ["openai-compatible"],
+      "expected": {"provider": "openai-compatible", "model": "gpt-5.6-luna", "effort": "low"}
+    },
+    {
+      "name": "quality architecture",
+      "text": "Review the entire project architecture",
+      "routingMode": "quality",
+      "availableProviders": ["openai-compatible"],
+      "expected": {"provider": "openai-compatible", "model": "gpt-5.6-sol", "effort": "high"}
+    },
+    {
+      "name": "low cost docs",
+      "text": "Explain the README documentation",
+      "routingMode": "low-cost",
+      "availableProviders": ["openai-compatible"],
+      "expected": {"provider": "openai-compatible", "model": "gpt-5.6-luna", "effort": "medium"}
+    },
+    {
+      "name": "local only docs",
+      "text": "Explain this documentation",
+      "routingMode": "local-only",
+      "availableProviders": ["ollama"],
+      "expected": {"provider": "ollama", "model": "qwen3-coder", "effort": "medium"}
+    }
+  ]
+}

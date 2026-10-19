@@ -1,0 +1,38 @@
+{
+  "formatVersion": 1,
+  "version": "0.6.0-rc.4",
+  "candidateType": "windows-developer-runtime-launch-source-candidate",
+  "sourceRuntimeQualified": true,
+  "python": {
+    "passed": 72,
+    "skipped": 14,
+    "failed": 0
+  },
+  "codeOssExtension": {
+    "passed": 72,
+    "skipped": 5,
+    "failed": 0
+  },
+  "pythonCompileAll": "passed",
+  "javascriptSyntax": "passed",
+  "jsonValidation": "passed",
+  "windowsSafeIoSha256": "70ae3e5ee2bf976db86afee13772b0fa7d2533a8640766296ef2fb7738b96471",
+  "windowsSafeIoBinaryParity": "passed",
+  "windowsDeveloperSetup": {
+    "implemented": true,
+    "oneCommandEntryPoints": [
+      "prepare-ai-coder-codeoss.ps1",
+      "prepare-ai-coder-codeoss.bat"
+    ],
+    "defaultCheckout": "%LOCALAPPDATA%\\AI-CODER\\dev\\CodeOSS-1.139.1",
+    "checksExactNvmrcNode": true,
+    "checksMsvcCppTools": true,
+    "checksWindowsSdk": true,
+    "installsPrerequisitesSilently": false,
+    "writesDeveloperBuildReport": true,
+    "executedOnNativeWindowsInThisQualification": false
+  },
+  "nativeWindowsBuildQualified": false,
+  "nativeWindowsPackagedAppQualified": false,
+  "note": "Linux/headless source qualification only. The one-command Windows developer setup and native packaged build must still be executed on Windows before native qualification."
+}

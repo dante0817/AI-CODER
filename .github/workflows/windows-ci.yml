@@ -1,0 +1,73 @@
+name: Windows Safe-I/O CI & Release Gate
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  merge_group:
+  workflow_dispatch:
+
+jobs:
+  windows-safe-io-required:
+    name: Mandatory Windows Safe-I/O Qualification (Release Blocker)
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: 'stable'
+          check-latest: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Clean build windows-safeio helper
+        run: |
+          powershell -ExecutionPolicy Bypass -File .\native\windows-safeio\build-windows-safeio.ps1
+
+      - name: Verify helper execution and build provenance
+        shell: pwsh
+        run: |
+          $helper = ".\native\windows-safeio\windows-safeio.exe"
+          $codeOssHelper = ".\code-oss-mvp\builtin-ai-coder\native\windows-safeio.exe"
+          
+          if (-not (Test-Path $helper)) { throw "Missing native helper binary: $helper" }
+          if (-not (Test-Path $codeOssHelper)) { throw "Missing Code-OSS helper binary: $codeOssHelper" }
+
+          $sha1 = (Get-FileHash -Algorithm SHA256 $helper).Hash
+          $sha2 = (Get-FileHash -Algorithm SHA256 $codeOssHelper).Hash
+          if ($sha1 -ne $sha2) {
+            throw "Binary SHA256 mismatch between Desktop ($sha1) and Code-OSS ($sha2)"
+          }
+          Write-Host "Helper SHA-256 parity verified: $sha1"
+
+          $versionJson = & $helper version
+          Write-Host "Helper version output: $versionJson"
+          $parsed = $versionJson | ConvertFrom-Json
+          if ($parsed.protocol -ne 1) { throw "Unexpected protocol version: $($parsed.protocol)" }
+          if ($parsed.arch -ne "windows/amd64") { throw "Unexpected arch: $($parsed.arch)" }
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest anyio
+
+      - name: Execute mandatory Windows Python test suite
+        run: |
+          python -m pytest -v
+
+      - name: Execute mandatory Code-OSS extension test suite
+        working-directory: code-oss-mvp/builtin-ai-coder
+        run: |
+          npm test

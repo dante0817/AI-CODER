@@ -1,0 +1,145 @@
+{
+  "formatVersion": 1,
+  "states": [
+    "ready",
+    "routing",
+    "gathering_context",
+    "calling_model",
+    "validating_plan",
+    "awaiting_review",
+    "applying",
+    "verifying",
+    "review",
+    "changed",
+    "applied",
+    "failed",
+    "cancelled",
+    "interrupted",
+    "recovery_required"
+  ],
+  "transientStates": [
+    "routing",
+    "gathering_context",
+    "calling_model",
+    "validating_plan",
+    "awaiting_review",
+    "applying",
+    "verifying"
+  ],
+  "cases": [
+    {
+      "name": "start-ready-task",
+      "from": "ready",
+      "to": "routing",
+      "allowed": true
+    },
+    {
+      "name": "rerun-review-task",
+      "from": "review",
+      "to": "routing",
+      "allowed": true
+    },
+    {
+      "name": "route-to-context",
+      "from": "routing",
+      "to": "gathering_context",
+      "allowed": true
+    },
+    {
+      "name": "context-to-model",
+      "from": "gathering_context",
+      "to": "calling_model",
+      "allowed": true
+    },
+    {
+      "name": "model-to-validation",
+      "from": "calling_model",
+      "to": "validating_plan",
+      "allowed": true
+    },
+    {
+      "name": "validation-to-review",
+      "from": "validating_plan",
+      "to": "awaiting_review",
+      "allowed": true
+    },
+    {
+      "name": "review-to-apply",
+      "from": "awaiting_review",
+      "to": "applying",
+      "allowed": true
+    },
+    {
+      "name": "apply-to-verification",
+      "from": "applying",
+      "to": "verifying",
+      "allowed": true
+    },
+    {
+      "name": "verify-to-worktree-review",
+      "from": "verifying",
+      "to": "review",
+      "allowed": true
+    },
+    {
+      "name": "verify-to-main-changed",
+      "from": "verifying",
+      "to": "changed",
+      "allowed": true
+    },
+    {
+      "name": "chat-completes",
+      "from": "calling_model",
+      "to": "ready",
+      "allowed": true
+    },
+    {
+      "name": "provider-fails",
+      "from": "calling_model",
+      "to": "failed",
+      "allowed": true
+    },
+    {
+      "name": "reject-review",
+      "from": "awaiting_review",
+      "to": "ready",
+      "allowed": true
+    },
+    {
+      "name": "undo-main-apply",
+      "from": "applied",
+      "to": "review",
+      "allowed": true
+    },
+    {
+      "name": "restart-after-failure",
+      "from": "failed",
+      "to": "routing",
+      "allowed": true
+    },
+    {
+      "name": "resume-interrupted",
+      "from": "interrupted",
+      "to": "routing",
+      "allowed": true
+    },
+    {
+      "name": "invalid-ready-to-applying",
+      "from": "ready",
+      "to": "applying",
+      "allowed": false
+    },
+    {
+      "name": "invalid-routing-to-applied",
+      "from": "routing",
+      "to": "applied",
+      "allowed": false
+    },
+    {
+      "name": "invalid-calling-to-applying",
+      "from": "calling_model",
+      "to": "applying",
+      "allowed": false
+    }
+  ]
+}

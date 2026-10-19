@@ -1,0 +1,27 @@
+{
+  "formatVersion": 2,
+  "cases": [
+    {
+      "name": "symbol references outrank generic neighboring source",
+      "activeRel": "src/controller.py",
+      "activeText": "class SessionManager:\n    pass\n",
+      "taskText": "Fix SessionManager cleanup",
+      "modifiedPaths": [],
+      "symbolHits": {"lib/session_store.py": 2, "src/helper.py": 0},
+      "paths": ["src/controller.py", "src/helper.py", "lib/session_store.py", "docs/guide.md"],
+      "expectedOrder": ["lib/session_store.py", "src/helper.py", "docs/guide.md"],
+      "expectedReasons": {"lib/session_store.py": "symbol-match"}
+    },
+    {
+      "name": "direct dependency keeps primary reason while symbol evidence boosts it",
+      "activeRel": "src/api.ts",
+      "activeText": "import { RequestRouter } from './router';\nfunction send() {}",
+      "taskText": "Update RequestRouter behavior",
+      "modifiedPaths": [],
+      "symbolHits": {"src/router.ts": 1, "src/other.ts": 1},
+      "paths": ["src/api.ts", "src/router.ts", "src/other.ts"],
+      "expectedOrder": ["src/router.ts", "src/other.ts"],
+      "expectedReasons": {"src/router.ts": "direct-dependency", "src/other.ts": "symbol-match"}
+    }
+  ]
+}

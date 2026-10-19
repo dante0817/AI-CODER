@@ -1,0 +1,53 @@
+{
+  "formatVersion": 1,
+  "mergeCases": [
+    {
+      "name": "new pending file",
+      "previous": {},
+      "files": [{"path": "a.txt", "before": "one", "after": "two"}],
+      "expected": {"a.txt": {"before": "one", "after": "two"}}
+    },
+    {
+      "name": "second edit preserves original baseline",
+      "previous": {"a.txt": {"before": "one", "after": "two"}},
+      "files": [{"path": "a.txt", "before": "two", "after": "three"}],
+      "expected": {"a.txt": {"before": "one", "after": "three"}}
+    },
+    {
+      "name": "revert to baseline clears pending",
+      "previous": {"a.txt": {"before": "one", "after": "two"}},
+      "files": [{"path": "a.txt", "before": "two", "after": "one"}],
+      "expected": {}
+    }
+  ],
+  "reviewCases": [
+    {
+      "name": "exact reviewed state matches",
+      "record": {"worktree": {"enabled": true, "path": "/tmp/wt", "branch": "ai-coder/a", "baseCommit": "abc"}, "pendingChanges": {"a.txt": {"before": "one", "after": "two"}}},
+      "reviewedWorktree": {"enabled": true, "path": "/tmp/wt", "branch": "ai-coder/a", "baseCommit": "abc"},
+      "reviewedPending": {"a.txt": {"before": "one", "after": "two"}},
+      "expected": true
+    },
+    {
+      "name": "base commit change invalidates review",
+      "record": {"worktree": {"enabled": true, "path": "/tmp/wt", "branch": "ai-coder/a", "baseCommit": "def"}, "pendingChanges": {"a.txt": {"before": "one", "after": "two"}}},
+      "reviewedWorktree": {"enabled": true, "path": "/tmp/wt", "branch": "ai-coder/a", "baseCommit": "abc"},
+      "reviewedPending": {"a.txt": {"before": "one", "after": "two"}},
+      "expected": false
+    },
+    {
+      "name": "new pending change invalidates review",
+      "record": {"worktree": {"enabled": true, "path": "/tmp/wt", "branch": "ai-coder/a", "baseCommit": "abc"}, "pendingChanges": {"a.txt": {"before": "one", "after": "two"}, "b.txt": {"before": null, "after": "new"}}},
+      "reviewedWorktree": {"enabled": true, "path": "/tmp/wt", "branch": "ai-coder/a", "baseCommit": "abc"},
+      "reviewedPending": {"a.txt": {"before": "one", "after": "two"}},
+      "expected": false
+    }
+  ],
+  "recoveryCases": [
+    {"name": "applied is recoverable", "state": "applied", "afterBytesVerified": false, "expected": true},
+    {"name": "history recovery marker is recoverable", "state": "history-recovery-needed", "afterBytesVerified": false, "expected": true},
+    {"name": "ready requires byte verification", "state": "ready", "afterBytesVerified": false, "expected": false},
+    {"name": "ready with verified postimage is recoverable", "state": "ready", "afterBytesVerified": true, "expected": true},
+    {"name": "undone pending history is not reconstructed as apply", "state": "undone-pending-history", "afterBytesVerified": true, "expected": false}
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "formatVersion": 1,
+  "product": "AI-CODER",
+  "version": "0.6.0-rc.2",
+  "generatedAtUtc": "2026-09-29T04:17:53.263280+00:00",
+  "qualificationClass": "linux-source-runtime-gui-convergence-candidate",
+  "pythonTests": {
+    "passed": 66,
+    "skipped": 14,
+    "failed": 0
+  },
+  "codeOssTests": {
+    "passed": 68,
+    "skipped": 5,
+    "failed": 0
+  },
+  "pythonCompile": "passed",
+  "javascriptSyntax": "passed",
+  "jsonValidation": "passed",
+  "guiConvergence": {
+    "taskModelsArchitectureSurfaces": true,
+    "nativeExplorerAiTasks": true,
+    "nativePendingDiffAction": true,
+    "bottomEvidencePanel": true,
+    "providerSetupRemovedFromTaskFlow": true,
+    "referenceWorkbenchExecutionImported": false
+  },
+  "windowsSafeIoSha256": "70ae3e5ee2bf976db86afee13772b0fa7d2533a8640766296ef2fb7738b96471",
+  "windowsSafeIoCopiesIdentical": true,
+  "nativeWindowsBuildQualified": false,
+  "powerShellScriptsExecutedInThisEnvironment": false,
+  "remainingMandatoryGates": [
+    "native Windows pinned Code-OSS build/package",
+    "NTFS Safe-I/O attack suite with no Windows security skips",
+    "packaged-app migration/restart/recovery qualification",
+    "remaining TypeScript application-service extraction/cancellation cutover gates",
+    "product/network identity audit",
+    "Code-OSS-default launcher cutover"
+  ],
+  "note": "This report qualifies the downloadable GUI-convergence source/runtime candidate only. It is not a native Windows production qualification."
+}
